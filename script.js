@@ -1,6 +1,16 @@
 const cityInput = document.getElementById("city");
 const submitButton = document.getElementById("submit");
 
+const displayHead = document.getElementById("head-title");
+const displayMain = document.getElementById("main");
+const displayStatus = document.getElementById("status");
+const displayDesc = document.getElementById("description");
+const displayTemp = document.getElementById("temp");
+const displayFeels = document.getElementById("feels");
+const displayPressure = document.getElementById("pressure");
+const displayHumidity = document.getElementById("humidity");
+const displayWind = document.getElementById("wind");
+
 // please don't steal my api key :)
 const apiKey = "9c90876792bd2297343d7cf096085561";
 
@@ -12,6 +22,18 @@ async function getWeather(location) {
 
   data = convertData(weather);
   console.log(data);
+  updateDisplay(
+    data.name,
+    data.country,
+    data.main,
+    data.status,
+    data.description,
+    data.temp,
+    data.feelsLike,
+    data.pressure,
+    data.humidity,
+    data.windSpeed
+  );
 }
 
 function convertData(weatherJson) {
@@ -51,4 +73,27 @@ function submitForm() {
   cityInput.value = "";
   console.log(city);
   getWeather(city);
+}
+
+function updateDisplay(
+  name,
+  country,
+  main,
+  status,
+  description,
+  temp,
+  feelsLike,
+  pressure,
+  humidity,
+  windSpeed
+) {
+  displayHead.textContent = name + ", " + country;
+  displayMain.textContent = main;
+  displayStatus.textContent = status;
+  displayDesc.textContent = description;
+  displayTemp.textContent = temp + " C";
+  displayFeels.textContent = feelsLike + " C";
+  displayPressure.textContent = pressure + " hPa";
+  displayHumidity.textContent = humidity + " %";
+  displayWind.textContent = windSpeed + " m/s";
 }
