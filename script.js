@@ -1,4 +1,7 @@
-// let searchLocation = "Surabaya";
+const cityInput = document.getElementById("city");
+const submitButton = document.getElementById("submit");
+
+// please don't steal my api key :)
 const apiKey = "9c90876792bd2297343d7cf096085561";
 
 async function getWeather(location) {
@@ -33,4 +36,19 @@ function convertData(weatherJson) {
     humidity,
     windSpeed,
   };
+}
+
+submitButton.onclick = () => submitForm();
+
+cityInput.onkeyup = (e) => {
+  if (e.keyCode == 13) {
+    submitForm();
+  }
+};
+
+function submitForm() {
+  const city = cityInput.value;
+  cityInput.value = "";
+  console.log(city);
+  getWeather(city);
 }
