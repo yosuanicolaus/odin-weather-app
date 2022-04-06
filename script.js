@@ -35,6 +35,7 @@ async function getWeather(location) {
     );
   } catch (err) {
     console.log("such does not exist! farewell!!");
+    updateDisplay("City not found", "-", "-", "-", "-", "-", "-", "-", "-");
   }
 }
 
@@ -43,11 +44,11 @@ function convertData(weatherJson) {
   const country = weatherJson.sys.country;
   const status = weatherJson.weather[0].main;
   const description = weatherJson.weather[0].description;
-  const temp = weatherJson.main.temp;
-  const feelsLike = weatherJson.main.feels_like;
-  const pressure = weatherJson.main.pressure;
-  const humidity = weatherJson.main.humidity;
-  const windSpeed = weatherJson.wind.speed;
+  const temp = weatherJson.main.temp + " C";
+  const feelsLike = weatherJson.main.feels_like + " C";
+  const pressure = weatherJson.main.pressure + " hPa";
+  const humidity = weatherJson.main.humidity + " %";
+  const windSpeed = weatherJson.wind.speed + " m/s";
 
   return {
     name,
@@ -73,7 +74,7 @@ cityInput.onkeyup = (e) => {
 function submitForm() {
   const city = cityInput.value;
   cityInput.value = "";
-  console.log(city);
+  displayHead.textContent = "Getting data...";
   getWeather(city);
 }
 
@@ -91,9 +92,9 @@ function updateDisplay(
   displayHead.textContent = name + ", " + country;
   displayStatus.textContent = status;
   displayDesc.textContent = description;
-  displayTemp.textContent = temp + " C";
-  displayFeels.textContent = feelsLike + " C";
-  displayPressure.textContent = pressure + " hPa";
-  displayHumidity.textContent = humidity + " %";
-  displayWind.textContent = windSpeed + " m/s";
+  displayTemp.textContent = temp;
+  displayFeels.textContent = feelsLike;
+  displayPressure.textContent = pressure;
+  displayHumidity.textContent = humidity;
+  displayWind.textContent = windSpeed;
 }
